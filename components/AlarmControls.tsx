@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react';
-import { Bell, Check, X, Timer, Volume2, Music, Save, Trash2, Calendar, Headphones, Upload } from 'lucide-react';
+import { Bell, Check, X, Timer, Volume2, Music, Save, Trash2, Calendar, Headphones, Upload, Zap } from 'lucide-react';
 import { PRESET_SOUNDS } from '../App';
 import { Alarm, DayOfWeek } from '../types';
 
@@ -22,6 +22,8 @@ const DAYS: { label: string; value: DayOfWeek }[] = [
   { label: 'F', value: 5 },
   { label: 'S', value: 6 },
 ];
+
+const SNOOZE_OPTIONS = [3, 5, 10, 15, 20, 30];
 
 export const AlarmControls: React.FC<AlarmControlsProps> = ({
   alarm,
@@ -109,6 +111,26 @@ export const AlarmControls: React.FC<AlarmControlsProps> = ({
                 </button>
               );
             })}
+          </div>
+        </div>
+
+        {/* Snooze Setting */}
+        <div className="flex flex-col gap-3">
+          <label className="text-white/80 text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2">
+            <Zap size={12} /> Default Snooze Interval
+          </label>
+          <div className="flex bg-white/5 rounded-2xl p-1 gap-1 flex-wrap">
+            {SNOOZE_OPTIONS.map((min) => (
+              <button
+                key={min}
+                onClick={() => setLocalAlarm({ ...localAlarm, snoozeDuration: min })}
+                className={`flex-1 min-w-[50px] py-2 rounded-xl text-[10px] transition-all font-bold ${
+                  localAlarm.snoozeDuration === min ? 'bg-white text-indigo-900 shadow-lg' : 'text-white/50 hover:bg-white/5'
+                }`}
+              >
+                {min}m
+              </button>
+            ))}
           </div>
         </div>
 
