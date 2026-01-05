@@ -8,7 +8,7 @@ export interface Alarm {
   repeatDays: DayOfWeek[];
   audioMode: 'preset' | 'custom';
   selectedPresetId: string;
-  customAudioData?: string; // Base64 string for persistence
+  customAudioId?: string; // Reference to IndexedDB key
   customAudioName?: string;
   snoozeDuration: number; // Duration in minutes
   label?: string;
@@ -38,5 +38,12 @@ export interface SpecialDate {
   label: string;
   date: string; // YYYY-MM-DD
   type: 'birthday' | 'special';
-  isRecurring: boolean; // If true, matches only MM-DD
+  isRecurring: boolean; // For birthdays, matches MM-DD regardless of year
+}
+
+export interface VaultItem {
+  id: string;
+  title: string;
+  secret: string;
+  note?: string;
 }
